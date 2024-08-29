@@ -1,0 +1,108 @@
+/* src/index.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* index.css */
+.gradient-border {
+  position: relative;
+  display: inline-block;
+  padding: 4px; /* Adjust padding to create space for the stroke */
+  border-radius: 10px; /* Match button border-radius for consistency */
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  z-index: -1;
+  background: linear-gradient(90deg, #751681, #9333EA); /* Gradient colors */
+  border-radius: 10px;
+  filter: blur(8px);
+  opacity: 0.8;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: scale(1.1); /* Slightly enlarge the glowing border */
+}
+
+.gradient-border:hover::before {
+  opacity: 0.4;
+  transform: scale(1.2); /* Enlarge the glowing border on hover */
+}
+
+.glow {
+  transition: box-shadow 0.3s ease;
+}
+
+.glow:hover {
+  box-shadow: 0 0 15px rgba(248, 248, 248, 0.7), 0 0 25px rgba(147, 51, 234, 0.5);
+}
+
+/* WebKit browsers (Chrome, Safari) */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px; /* Adjust the size as needed */
+  height: 20px; /* Adjust the size as needed */
+  border-radius: 50%;
+  background: #ffffff; /* White color for the dot */
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2); /* Shadow around the thumb */
+  cursor: pointer;
+  border: none; /* Remove the border */
+}
+
+/* Firefox */
+input[type="range"]::-moz-range-thumb {
+  width: 20px; /* Adjust the size as needed */
+  height: 20px; /* Adjust the size as needed */
+  border-radius: 50%;
+  background: #ffffff; /* White color for the dot */
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2); /* Shadow around the thumb */
+  cursor: pointer;
+  border: none; /* Remove the border */
+}
+
+/* IE and Edge */
+input[type="range"]::-ms-thumb {
+  width: 20px; /* Adjust the size as needed */
+  height: 20px; /* Adjust the size as needed */
+  border-radius: 50%;
+  background: #ffffff; /* White color for the dot */
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2); /* Shadow around the thumb */
+  cursor: pointer;
+  border: none; /* Remove the border */
+}
+
+
+/* Tooltip styling */
+.tooltip-content {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 0.5rem;
+  width: 24rem; /* or 96 tailwind units */
+  background-color: #4a4a4a; /* Gray color */
+  color: white;
+  font-size: 0.875rem; /* Small text size */
+  border-radius: 0.375rem; /* Rounded corners */
+  padding: 0.5rem 1rem; /* Padding inside the tooltip */
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Show tooltip on hover over the icon */
+.tooltip-icon:hover + .tooltip-content {
+  visibility: visible;
+  opacity: 1;
+}
+
+
+
+
+
