@@ -11,6 +11,7 @@ const Hero = () => {
 
   return (
     <div className="h-screen relative flex overflow-hidden bg-hero-image bg-cover">
+      <img  className="bg-cover w-full" src="./src/assets/bg-main.webp" alt="" />
       <div className="absolute bottom-0 left-0 mb-12 ml-12 flex flex-col items-start space-y-4">
         <p className="text-white text-6xl mb-6 leading-tight">
           Secure,<br />transparent,<br />and capable of<br />multiple transactions.
