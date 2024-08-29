@@ -11,6 +11,7 @@ const getKeplr = async (chainId: string) => {
   return { offlineSigner, accounts, key };
 };
 
+
 const fetchBalances = async (injectiveAddress: string, grpcWebEndpoint: string) => {
   try {
     const chainGrpcBankApi = new ChainGrpcBankApi(grpcWebEndpoint);
