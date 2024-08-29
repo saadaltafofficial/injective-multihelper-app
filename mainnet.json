@@ -31119,18 +31119,7 @@
     "tokenVerification": "internal",
     "externalLogo": "unknown.png"
   },
-  {
-    "name": "CJ9",
-    "logo": "https://imagedelivery.net/DYKOWp0iCc0sIkF-2e4dNw/1fb4f29a-9aed-4349-4e0b-0db6b28e7500/public",
-    "symbol": "CJN",
-    "decimals": 18,
-    "coinGeckoId": "",
-    "denom": "inj1eln607626f3j058rfh4xd3m4pd728x2cnxw4al",
-    "address": "inj1eln607626f3j058rfh4xd3m4pd728x2cnxw4al",
-    "tokenType": "cw20",
-    "tokenVerification": "internal",
-    "externalLogo": "https://cnj-s3.s3.ap-southeast-1.amazonaws.com/injective_logo.png"
-  },
+  
   {
     "name": "FDC",
     "logo": "https://imagedelivery.net/DYKOWp0iCc0sIkF-2e4dNw/1fb4f29a-9aed-4349-4e0b-0db6b28e7500/public",
@@ -33291,18 +33280,7 @@
     "tokenVerification": "internal",
     "externalLogo": "unknown.png"
   },
-  {
-    "name": "Elemental Token",
-    "logo": "https://imagedelivery.net/DYKOWp0iCc0sIkF-2e4dNw/1fb4f29a-9aed-4349-4e0b-0db6b28e7500/public",
-    "symbol": "ELEM",
-    "decimals": 18,
-    "coinGeckoId": "",
-    "denom": "inj1kxwmyuns9z36dd0luggj7wyzetqyfz8cuhdvm2",
-    "address": "inj1kxwmyuns9z36dd0luggj7wyzetqyfz8cuhdvm2",
-    "tokenType": "cw20",
-    "tokenVerification": "internal",
-    "externalLogo": "https://xninja.s3.ap-southeast-1.amazonaws.com/images/logo_token_elem.png"
-  },
+  
   {
     "name": "Unknown",
     "logo": "https://imagedelivery.net/DYKOWp0iCc0sIkF-2e4dNw/1fb4f29a-9aed-4349-4e0b-0db6b28e7500/public",
@@ -35367,18 +35345,7 @@
     "tokenVerification": "internal",
     "externalLogo": "unknown.png"
   },
-  {
-    "name": "test2club",
-    "logo": "https://imagedelivery.net/DYKOWp0iCc0sIkF-2e4dNw/1fb4f29a-9aed-4349-4e0b-0db6b28e7500/public",
-    "symbol": "testclubss",
-    "decimals": 18,
-    "coinGeckoId": "",
-    "denom": "inj1r0rkq2v70lur23jczassuqu5qwc5npcjpp3e8c",
-    "address": "inj1r0rkq2v70lur23jczassuqu5qwc5npcjpp3e8c",
-    "tokenType": "cw20",
-    "tokenVerification": "internal",
-    "externalLogo": "https://talis-app-injective-staging.s3.eu-west-2.amazonaws.com/families/66067b5875e6679d4f2d7e7b/miniaturePicture?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIARORJINLQJAF6N2GU%2F20240330%2Feu-west-2%2Fs3%2Faws4_request&X-Amz-Date=20240330T000000Z&X-Amz-Expires=86400&X-Amz-Signature=37537e13ecef599d3c2c1222842f575c179019b47b1e1c6347d0de67a4caf7e7&X-Amz-SignedHeaders=host&response-cache-control=public%2C%20max-age%3D86400%2C%20immutable&x-id=GetObject"
-  },
+  
   {
     "name": "Epic",
     "logo": "https://imagedelivery.net/DYKOWp0iCc0sIkF-2e4dNw/1fb4f29a-9aed-4349-4e0b-0db6b28e7500/public",
@@ -35631,18 +35598,7 @@
     "tokenVerification": "internal",
     "externalLogo": "https://lh3.googleusercontent.com/proxy/XcSMbmvu-bzMnjmoqJblazJiq9rHfzz_nuCvLYIZSL3Zq9xJJY4QPe8ys-iu4araAIn5Ewn4H62eij29wo9Rlf5TGhk26q8tGmaI"
   },
-  {
-    "name": "Datoshi",
-    "logo": "https://imagedelivery.net/DYKOWp0iCc0sIkF-2e4dNw/1fb4f29a-9aed-4349-4e0b-0db6b28e7500/public",
-    "symbol": "DATOSHI",
-    "decimals": 18,
-    "coinGeckoId": "",
-    "denom": "inj1rp63ym52lawyuha4wvn8gy33ccqtpj5pu0n2ef",
-    "address": "inj1rp63ym52lawyuha4wvn8gy33ccqtpj5pu0n2ef",
-    "tokenType": "cw20",
-    "tokenVerification": "internal",
-    "externalLogo": "https://mint.club/_next/image?url=https%3A%2F%2Fmint-club-v2.s3.us-west-2.amazonaws.com%2F666666666%2F0xCdEDBf50ae65E0435139B87d3D321f845ad31D38%2Flogo.png%3Ft%3D1712523977880&w=64&q=75"
-  },
+
   {
     "name": "Freecoin",
     "logo": "https://imagedelivery.net/DYKOWp0iCc0sIkF-2e4dNw/1fb4f29a-9aed-4349-4e0b-0db6b28e7500/public",
@@ -37419,18 +37375,7 @@
     "tokenVerification": "internal",
     "externalLogo": "unknown.png"
   },
-  {
-    "name": "CJ9",
-    "logo": "https://imagedelivery.net/DYKOWp0iCc0sIkF-2e4dNw/1fb4f29a-9aed-4349-4e0b-0db6b28e7500/public",
-    "symbol": "CNJ",
-    "decimals": 18,
-    "coinGeckoId": "",
-    "denom": "inj1w38vdrkemf8s40m5xpqe5fc8hnvwq3d794vc4a",
-    "address": "inj1w38vdrkemf8s40m5xpqe5fc8hnvwq3d794vc4a",
-    "tokenType": "cw20",
-    "tokenVerification": "internal",
-    "externalLogo": "https://cnj-s3.s3.ap-southeast-1.amazonaws.com/injective_logo.png"
-  },
+
   {
     "name": "FDC",
     "logo": "https://imagedelivery.net/DYKOWp0iCc0sIkF-2e4dNw/1fb4f29a-9aed-4349-4e0b-0db6b28e7500/public",
@@ -38487,18 +38432,7 @@
     "tokenVerification": "internal",
     "externalLogo": "unknown.png"
   },
-  {
-    "name": "Leonardo",
-    "logo": "https://imagedelivery.net/DYKOWp0iCc0sIkF-2e4dNw/1fb4f29a-9aed-4349-4e0b-0db6b28e7500/public",
-    "symbol": "LEO",
-    "decimals": 18,
-    "coinGeckoId": "",
-    "denom": "inj1yndh0j4dpnjuqaap7u6csta2krvhqddjwd3p9w",
-    "address": "inj1yndh0j4dpnjuqaap7u6csta2krvhqddjwd3p9w",
-    "tokenType": "cw20",
-    "tokenVerification": "internal",
-    "externalLogo": "https://github-production-user-asset-6210df.s3.amazonaws.com/164326478/315221885-89f9dc16-9560-41f4-8d0a-86b29a199847.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20240321%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240321T172903Z&X-Amz-Expires=300&X-Amz-Signature=0c5bbf72c93b76033b96198a883baa66fbe2ffcd32c04ff0e4703a6d30199031&X-Amz-SignedHeaders=host&actor_id=164326478&key_id=0&repo_id=184951947"
-  },
+ 
   {
     "name": "KingFusion",
     "logo": "https://imagedelivery.net/DYKOWp0iCc0sIkF-2e4dNw/1fb4f29a-9aed-4349-4e0b-0db6b28e7500/public",
