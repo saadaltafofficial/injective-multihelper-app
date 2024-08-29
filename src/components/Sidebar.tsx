@@ -4,7 +4,7 @@ import { GoStack } from "react-icons/go";
 import { IoWalletOutline } from "react-icons/io5";
 // import { GrTransaction } from "react-icons/gr";
 import { FaCalculator } from "react-icons/fa6";
-// import { IoMdSettings } from "react-icons/io"; // Import icon for the new button
+import { IoMdSettings } from "react-icons/io"; // Import icon for the new button
 
 interface SidebarProps {
   setActiveOption: (option: string) => void;
@@ -61,14 +61,14 @@ const Sidebar: React.FC<SidebarProps> = ({ setActiveOption, isWalletConnected })
           {isOpen && <span className="ml-6">Gas Calculator</span>}
         </button>
         {/* Settings Button Styled Like Other Buttons */}
-        {/* <button
-          onClick={() => handleOptionClick('Settings')}
+        <button
+          onClick={() => handleOptionClick('Injective Address')}
           className={`flex items-center px-4 py-2 hover:bg-[#F0F0EF] m-2 rounded-md ${!isWalletConnected && 'opacity-50 cursor-not-allowed'}`}
           disabled={!isWalletConnected}
         >
           <IoMdSettings className="text-2xl" style={{ marginBottom: isOpen ? 0 : '0.5rem' }} /> 
-          {isOpen && <span className="ml-6">Settings</span>}
-        </button> */}
+          {isOpen && <span className="ml-6">Injective Address</span>}
+        </button>
       </div>
     </div>
   );

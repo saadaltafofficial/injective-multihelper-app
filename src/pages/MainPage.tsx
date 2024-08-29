@@ -4,7 +4,7 @@ import Multisender from './Multisender';
 import TokenHolder from './TokenHolder';
 import Transactions from './Transactions';
 import Calculator from './calculator';
-import Settings from './Settings';
+import InjectiveAddress from './injectiveAddress';
 import { getKeplr, fetchBalances } from '../utils/keplrUtils';
 import { FiLogIn, FiChevronDown } from 'react-icons/fi';
 import { useNetwork } from '../contexts/NetworkContext';
@@ -154,7 +154,7 @@ const MainPage: React.FC = () => {
                   {activeOption === 'Token Holders' && <TokenHolder />}
                   {activeOption === 'Transactions' && <Transactions />}
                   {activeOption === 'Gas Calculator' && <Calculator />}
-                  {activeOption === 'Settings' && <Settings />}
+                  {activeOption === 'Injective Address' && <InjectiveAddress/>}
                 </div>
               </div>
             </>
