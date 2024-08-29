@@ -14,7 +14,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Hero />} />
             <Route path="/transaction-form" element={<TransactionForm />} />
-            <Route path="/main-page" element={<MainPage />} />          
+            <Route path="/app" element={<MainPage />} />          
           </Routes>
         </Router>
       </div>

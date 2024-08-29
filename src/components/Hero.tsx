@@ -1,4 +1,9 @@
 // src/components/Hero.tsx
+import background from '../images/bg-main.webp';
+import twitter from '../images/twitter.png';
+import medium from '../images/medium.png';
+import github from '../images/github.png';
+
 
 import { useNavigate } from 'react-router-dom';
 
@@ -6,12 +11,12 @@ const Hero = () => {
   const navigate = useNavigate();
 
   const handleLaunchApp = () => {
-    navigate('/main-page');
+    navigate('/app');
   };
 
   return (
     <div className="h-screen relative flex overflow-hidden bg-hero-image bg-cover">
-      <img  className="bg-cover w-full" src="./src/assets/bg-main.webp" alt="" />
+      <img  className="bg-cover w-full" src={background} alt="" />
       <div className="absolute bottom-0 left-0 mb-12 ml-12 flex flex-col items-start space-y-4">
         <p className="text-white text-6xl mb-6 leading-tight">
           Secure,<br />transparent,<br />and capable of<br />multiple transactions.
@@ -46,13 +51,13 @@ const Hero = () => {
 
       <div className="absolute bottom-0 right-0 mb-14 mr-12 flex space-x-12 align-top">
         <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-          <img src="src/assets/twitter.png" alt="Twitter" className="w-9" />
-        </a>
-        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-          <img src="src/assets/github.png" alt="Instagram" className="w-9" />
+          <img src={twitter} alt="Twitter" className="w-9" />
         </a>
         <a href="https://medium.com" target="_blank" rel="noopener noreferrer">
-          <img src="src/assets/medium.png" alt="Medium" className="w-9" />
+          <img src={medium} alt="medium" className="w-9" />
+        </a>
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+          <img src={github} alt="github" className="w-9" />
         </a>
       </div>
     </div>
