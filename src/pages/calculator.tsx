@@ -49,7 +49,7 @@ const GasFeeCalculator: React.FC = () => {
           Calculate Fee
         </button>
         {calculatedFee !== null && (
-          <div className="mt-4 p-4 bg-white rounded-lg">
+          <div className="mt-4 p-4 bg-whi rounded-lg">
             <h2 className="font-medium text-gray-700">Calculated Gas Fee:</h2>
             <p className="text-lg font-semibold text-gray-700 ">{calculatedFee.toFixed(18)} INJ</p>
           </div>

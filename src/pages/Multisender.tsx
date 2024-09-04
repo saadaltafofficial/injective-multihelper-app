@@ -29,7 +29,7 @@ const Multisender: React.FC = () => {
   const [transactionHashes, setTransactionHashes] = useState<TransactionHash[]>([]);
   const [showStatus, setShowStatus] = useState<boolean>(false);
   const [showGasFeeSection, setShowGasFeeSection] = useState<boolean>(false);
-  const [gasFee, setGasFee] = useState<number>(5000000);
+  const [gasFee, setGasFee] = useState<number>(50000000);
 
   const chainId = isTestnet ? 'injective-888' : 'injective-1';
   const sentryEndpoint = isTestnet
@@ -182,7 +182,7 @@ const Multisender: React.FC = () => {
         chainId,
         fee: {
           amount: [{ denom: 'inj', amount: gasFee.toString() }],
-          gas: '1000000', // Static gas value here
+          gas: '50000000', // Static gas value here
         },
         message: msg,
         sequence: Number(baseAccount.sequence),
