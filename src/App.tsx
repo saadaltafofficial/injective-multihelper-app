@@ -2,7 +2,7 @@
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Hero from './components/Hero';
-import TransactionForm from './components/TransactionForm';
+import TransactionForm from './pages/CreateTokens';
 import MainPage from './pages/MainPage';
 import { NetworkProvider } from './contexts/NetworkContext'; // Import NetworkProvider
 

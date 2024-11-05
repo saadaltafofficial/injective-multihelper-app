@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import Multisender from './Multisender';
 import TokenHolder from './TokenHolder';
-import Transactions from './Transactions';
+import CreateTokens from './CreateTokens';
 import Calculator from './calculator';
 import InjectiveAddress from './injectiveAddress';
 import { getKeplr, fetchBalances } from '../utils/keplrUtils';
@@ -152,7 +152,7 @@ const MainPage: React.FC = () => {
                 <div>
                   {activeOption === 'Multisender' && <Multisender />}
                   {activeOption === 'Token Holders' && <TokenHolder />}
-                  {activeOption === 'Transactions' && <Transactions />}
+                  {activeOption === 'Create Tokens' && <CreateTokens />}
                   {activeOption === 'Gas Calculator' && <Calculator />}
                   {activeOption === 'Injective Address' && <InjectiveAddress/>}
                 </div>

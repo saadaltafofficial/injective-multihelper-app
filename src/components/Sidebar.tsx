@@ -53,6 +53,14 @@ const Sidebar: React.FC<SidebarProps> = ({ setActiveOption, isWalletConnected })
           {isOpen && <span className="ml-6">Token Holders</span>}
         </button>        
         <button
+          onClick={() => handleOptionClick('Create Tokens')}
+          className={`flex items-center px-4 py-2 hover:bg-[#F0F0EF] m-2 rounded-md ${!isWalletConnected && 'opacity-50 cursor-not-allowed'}`}
+          disabled={!isWalletConnected}
+        >
+          <IoWalletOutline className="text-2xl" style={{ marginBottom: isOpen ? 0 : '0.5rem' }} /> 
+          {isOpen && <span className="ml-6">Create Tokens</span>}
+        </button>        
+        <button
           onClick={() => handleOptionClick('Gas Calculator')}
           className={`flex items-center px-4 py-2 hover:bg-[#F0F0EF] m-2 rounded-md ${!isWalletConnected && 'opacity-50 cursor-not-allowed'}`}
           disabled={!isWalletConnected}
