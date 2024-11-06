@@ -8,6 +8,7 @@ import { DEFAULT_BLOCK_TIMEOUT_HEIGHT, BigNumberInBase, BigNumberInWei } from "@
 import { SignDoc } from "@keplr-wallet/types";
 import { getSymbolFromDenom } from '../utils/tokenUtils'; // Import the shared utility
 import { AiFillQuestionCircle } from "react-icons/ai";
+import { ethers } from 'ethers';
 // import { time } from 'console';
 
 type CsvRow = [string, string];
@@ -29,7 +30,7 @@ const Multisender: React.FC = () => {
   const [transactionHashes, setTransactionHashes] = useState<TransactionHash[]>([]);
   const [showStatus, setShowStatus] = useState<boolean>(false);
   const [showGasFeeSection, setShowGasFeeSection] = useState<boolean>(false);
-  const [gasFee, setGasFee] = useState<number>(200000);
+  const [gasFee, setGasFee] = useState<number>(50000000);
 
   const chainId = isTestnet ? 'injective-888' : 'injective-1';
   const sentryEndpoint = isTestnet
@@ -149,9 +150,14 @@ const Multisender: React.FC = () => {
       const timeoutHeight = new BigNumberInBase(latestHeight).plus(DEFAULT_BLOCK_TIMEOUT_HEIGHT);
 
       const totalToSend = csvData.reduce((acc, [, amount]) => {
-        const amountInWei = new BigNumberInBase(amount).times(new BigNumberInBase(10).pow(18));
-        return acc.plus(amountInWei);
-      }, new BigNumberInWei(0));
+        return acc.plus(new BigNumberInBase(amount).toWei(18));
+      }, new BigNumberInWei(0));   
+      
+
+      // const totalToSend = csvData.reduce((acc, [, amount]) => {
+      //   return acc.add(ethers.utils.parseUnits(amount.toString(), 18));
+      // }, ethers.BigNumber.from(0));
+
 
 
       const msg = MsgMultiSend.fromJSON({
