@@ -8,7 +8,6 @@ import { DEFAULT_BLOCK_TIMEOUT_HEIGHT, BigNumberInBase, BigNumberInWei } from "@
 import { SignDoc } from "@keplr-wallet/types";
 import { getSymbolFromDenom } from '../utils/tokenUtils'; // Import the shared utility
 import { AiFillQuestionCircle } from "react-icons/ai";
-import { ethers } from 'ethers';
 // import { time } from 'console';
 
 type CsvRow = [string, string];
