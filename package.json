@@ -14,7 +14,7 @@
     "@chain-registry/client": "^1.48.52",
     "@cosmos-kit/leap": "^2.12.2",
     "@cosmos-kit/react": "^2.18.0",
-    "@injectivelabs/networks": "^1.14.16",
+    "@injectivelabs/networks": "^1.14.33",
     "@injectivelabs/sdk-ts": "^1.14.16",
     "@injectivelabs/ts-types": "^1.14.16",
     "@injectivelabs/utils": "^1.14.16",

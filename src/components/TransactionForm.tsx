@@ -4,7 +4,7 @@ import {
   MsgMultiSend,
   TxRaw,
   BaseAccount,
-  TxRestClient,
+  TxRestApi,
   ChainRestAuthApi,
   ChainGrpcBankApi,
   createTransaction,
@@ -216,7 +216,7 @@ const TransactionForm = () => {
 
       const txRaw = getTxRawFromTxRawOrDirectSignResponse(directSignResponse);
       const txHash = await broadcastTx(chainId, txRaw);
-      const response = await new TxRestClient(sentryEndpoint).fetchTxPoll(txHash);
+      const response = await new TxRestApi(sentryEndpoint).fetchTxPoll(txHash);
 
       setStatus(`Transaction successful: ${response.txHash}`);
     } catch (error) {

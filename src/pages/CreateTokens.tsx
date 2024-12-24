@@ -6,7 +6,7 @@ import {
   MsgMint,
   MsgChangeAdmin,
   MsgSetDenomMetadata,
-  TxRestClient,
+  TxRestApi,
   ChainGrpcAuthApi,
 } from '@injectivelabs/sdk-ts';
 import { broadcastTx, getKeplr } from '../utils/keplrUtils';
@@ -120,6 +120,7 @@ const TokenCreator = () => {
       const msgSetDenomMetadata = MsgSetDenomMetadata.fromJSON({
         sender: injectiveAddress,
         metadata: {
+          decimals: decimals,
           base: denom,
           description,
           display: symbol,
@@ -176,7 +177,7 @@ const TokenCreator = () => {
       const directSignResponse = await offlineSigner.signDirect(address, signDoc);
       const txRaw = getTxRawFromTxRawOrDirectSignResponse(directSignResponse);
       const txHash = await broadcastTx(chainId, txRaw);
-      const response = await new TxRestClient(endpoints.rest).fetchTxPoll(txHash);
+      const response = await new TxRestApi(endpoints.rest).fetchTxPoll(txHash);
 
       if (response && response.txHash) {
         setStatus(`Transaction successful: ${response.txHash}`);

@@ -6,6 +6,10 @@ export default {
   ],
   theme: {
     extend: {
+      colors: {
+        'custom-blue': 'rgba(37, 23, 169, 0.8)',
+        'navbar-bg': 'rgba(241, 241, 242, .1)'
+      },
       fontFamily: {
         Poppins: ['Poppins', 'sans-serif'], // Use the 'Poppins' font family
       },

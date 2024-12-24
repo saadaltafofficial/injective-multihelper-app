@@ -9,7 +9,7 @@ import { NetworkProvider } from './contexts/NetworkContext'; // Import NetworkPr
 function App() {
   return (
     <NetworkProvider>
-      <div className='font-Poppins'>
+      <div className='font-[inter]'>
         <Router>
           <Routes>
             <Route path="/" element={<Hero />} />

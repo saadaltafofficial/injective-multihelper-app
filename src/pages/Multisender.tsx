@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Papa from 'papaparse';
 import { Buffer } from 'buffer';
-import { MsgMultiSend, TxRestClient, BaseAccount, createTransaction, getTxRawFromTxRawOrDirectSignResponse, ChainRestAuthApi, ChainRestTendermintApi } from '@injectivelabs/sdk-ts';
+import { MsgMultiSend, TxRestApi, BaseAccount, createTransaction, getTxRawFromTxRawOrDirectSignResponse, ChainRestAuthApi, ChainRestTendermintApi } from '@injectivelabs/sdk-ts';
 import { getKeplr, broadcastTx, fetchBalances } from '../utils/keplrUtils';
 import { useNetwork } from '../contexts/NetworkContext';
 import { DEFAULT_BLOCK_TIMEOUT_HEIGHT, BigNumberInBase, BigNumberInWei } from "@injectivelabs/utils";
@@ -204,7 +204,7 @@ const Multisender: React.FC = () => {
 
       const txRaw = getTxRawFromTxRawOrDirectSignResponse(directSignResponse);
       const txHash = await broadcastTx(chainId, txRaw);
-      const response = await new TxRestClient(sentryEndpoint).fetchTxPoll(txHash);
+      const response = await new TxRestApi(sentryEndpoint).fetchTxPoll(txHash);
 
       setStatus(`Transaction successful: ${response.txHash}`);
 
