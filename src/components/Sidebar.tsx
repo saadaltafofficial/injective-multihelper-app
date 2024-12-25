@@ -27,7 +27,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setActiveOption, isWalletConnected })
   };
 
   return (
-    <div className={`relative  ${isOpen ? 'w-64' : 'w-16'} bg-[#F1F1F2] text-custom-blue flex justify-center transition-all duration-300 font-[inter] font-medium border-[##8E8F87] border-r-2 `}>
+    <div className={`relative  ${isOpen ? 'w-64' : 'w-16'} bg-[#F1F1F2] text-[#8E8F87] flex justify-center transition-all duration-300 font-[inter] font-medium border-[##8E8F87] border-r-2 `}>
       <button
         onClick={handleToggle}
         className="absolute top-4 right-4  text-white"
