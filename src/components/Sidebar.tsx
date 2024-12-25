@@ -27,21 +27,21 @@ const Sidebar: React.FC<SidebarProps> = ({ setActiveOption, isWalletConnected })
   };
 
   return (
-    <div className={`relative h-full ${isOpen ? 'w-64' : 'w-16'} bg-white text-[#8E8F87] flex justify-center transition-all duration-300 font-Poppins border-black`}>
+    <div className={`relative  ${isOpen ? 'w-64' : 'w-16'} bg-[#F1F1F2] text-[#8E8F87] flex justify-center transition-all duration-300 font-Poppins border-[##8E8F87] border-r-2 `}>
       <button
         onClick={handleToggle}
         className="absolute top-4 right-4  text-white"
       >
-        {isOpen ? <TbLayoutSidebarFilled className="text-3xl" style={{ color: '#8E8F87' }}/> : <TbLayoutSidebarRightFilled className="text-3xl" style={{ color: '#8E8F87' }}/>}
+        {isOpen ? <TbLayoutSidebarFilled className="text-3xl text-custom-blue" /> : <TbLayoutSidebarRightFilled className="text-3xl text-custom-blue" />}
       </button>
       <div className="flex flex-col mt-24 space-y-5">
         <button
           onClick={() => handleOptionClick('Multisender')}
-          
+
           className={`flex items-center px-4 py-2 hover:bg-[#F0F0EF] m-2 rounded-md  ${!isWalletConnected && 'opacity-50 cursor-not-allowed'}`}
           disabled={!isWalletConnected}
         >
-          <GoStack className="text-2xl" style={{ marginBottom: isOpen ? 0 : '0.5rem' }} /> 
+          <GoStack className="text-2xl text-custom-blue" style={{ marginBottom: isOpen ? 0 : '0.5rem' }} />
           {isOpen && <span className="ml-6">Multisender</span>}
         </button>
         <button
@@ -49,23 +49,23 @@ const Sidebar: React.FC<SidebarProps> = ({ setActiveOption, isWalletConnected })
           className={`flex items-center px-4 py-2 hover:bg-[#F0F0EF] m-2 rounded-md ${!isWalletConnected && 'opacity-50 cursor-not-allowed'}`}
           disabled={!isWalletConnected}
         >
-          <IoWalletOutline className="text-2xl" style={{ marginBottom: isOpen ? 0 : '0.5rem' }} /> 
+          <IoWalletOutline className="text-2xl text-custom-blue" style={{ marginBottom: isOpen ? 0 : '0.5rem' }} />
           {isOpen && <span className="ml-6">Token Holders</span>}
-        </button>        
+        </button>
         <button
           onClick={() => handleOptionClick('Create Tokens')}
           className={`flex items-center px-4 py-2 hover:bg-[#F0F0EF] m-2 rounded-md ${!isWalletConnected && 'opacity-50 cursor-not-allowed'}`}
           disabled={!isWalletConnected}
         >
-          <IoWalletOutline className="text-2xl" style={{ marginBottom: isOpen ? 0 : '0.5rem' }} /> 
+          <IoWalletOutline className="text-2xl text-custom-blue" style={{ marginBottom: isOpen ? 0 : '0.5rem' }} />
           {isOpen && <span className="ml-6">Create Tokens</span>}
-        </button>        
+        </button>
         <button
           onClick={() => handleOptionClick('Gas Calculator')}
           className={`flex items-center px-4 py-2 hover:bg-[#F0F0EF] m-2 rounded-md ${!isWalletConnected && 'opacity-50 cursor-not-allowed'}`}
           disabled={!isWalletConnected}
         >
-          <FaCalculator className="text-2xl" style={{ marginBottom: isOpen ? 0 : '0.5rem' }} /> 
+          <FaCalculator className="text-2xl text-custom-blue" style={{ marginBottom: isOpen ? 0 : '0.5rem' }} />
           {isOpen && <span className="ml-6">Gas Calculator</span>}
         </button>
         {/* Settings Button Styled Like Other Buttons */}
@@ -74,7 +74,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setActiveOption, isWalletConnected })
           className={`flex items-center px-4 py-2 hover:bg-[#F0F0EF] m-2 rounded-md ${!isWalletConnected && 'opacity-50 cursor-not-allowed'}`}
           disabled={!isWalletConnected}
         >
-          <IoMdSettings className="text-2xl" style={{ marginBottom: isOpen ? 0 : '0.5rem' }} /> 
+          <IoMdSettings className="text-2xl text-custom-blue" style={{ marginBottom: isOpen ? 0 : '0.5rem' }} />
           {isOpen && <span className="ml-6">Injective Address</span>}
         </button>
       </div>
