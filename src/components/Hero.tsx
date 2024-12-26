@@ -1,8 +1,6 @@
-import twitter from '../images/twitter.png';
-import medium from '../images/medium.png';
-import github from '../images/github.png';
 import { useNavigate } from 'react-router-dom';
 import logo from '../images/logo.png'
+import Footer from './Footer';
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -36,17 +34,7 @@ const Hero = () => {
         </section>
       </main>
 
-      <div className="flex gap-8 justify-center items-center absolute bottom-8 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-          <img src={twitter} alt="Twitter" className="w-6" />
-        </a>
-        <a href="https://medium.com" target="_blank" rel="noopener noreferrer">
-          <img src={medium} alt="medium" className="w-6" />
-        </a>
-        <a href="https://github.com" target="_blank" rel="noopener noreferrer">
-          <img src={github} alt="github" className="w-6" />
-        </a>
-      </div>
+      <Footer />
     </div>
   );
 };

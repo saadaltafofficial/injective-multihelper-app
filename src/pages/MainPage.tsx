@@ -8,7 +8,8 @@ import InjectiveAddress from './injectiveAddress';
 import { getKeplr, fetchBalances } from '../utils/keplrUtils';
 import { FiLogIn, FiChevronDown } from 'react-icons/fi';
 import { useNetwork } from '../contexts/NetworkContext';
-import { getSymbolFromDenom } from '../utils/tokenUtils'; // Import the shared utility
+import { getSymbolFromDenom } from '../utils/tokenUtils';
+
 
 const MainPage: React.FC = () => {
   const { isTestnet, setNetwork } = useNetwork();
@@ -69,12 +70,12 @@ const MainPage: React.FC = () => {
   const isZeroBalance = balances && Array.from(balances.values()).every((balance) => parseFloat(balance) === 0);
 
   return (
-    <div className="flex h-screen">
-      <Sidebar setActiveOption={setActiveOption} isWalletConnected={isWalletConnected}/>
-      <div className="flex-1 flex flex-col p-4">
-        <div className="flex flex-grow flex-col relative">
+    <>    
+      <header className="flex h-screen">
+        <Sidebar setActiveOption={setActiveOption} isWalletConnected={isWalletConnected} />
+        <section className='w-full p-4'>
           {!isWalletConnected ? (
-            <div className="flex justify-center items-center flex-grow">
+            <div className='flex w-full h-full justify-center items-center'>
               <button
                 onClick={connectWallet}
                 className="flex items-center px-6 py-4 bg-gradient-to-b from-[#192DAD] to-custom-blue text-white rounded-full hover:scale-[2rem] duration-150"
@@ -85,83 +86,76 @@ const MainPage: React.FC = () => {
             </div>
           ) : (
             <>
-              <div className="absolute top-2 right-2 mr-8 rounded-lg flex items-center">
-                <div className="flex space-x-4 items-center">
-                  {isZeroBalance && (
-                    <button
-                      onClick={disconnectWallet}
-                      className="text-sm font-medium text-left px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-3xl bg-[#F0F0EF]"
-                    >
-                      Disconnect Wallet
-                    </button>
-                  )}
-                  {!isZeroBalance && (
-                    <div className="relative">
-                      <div className="flex bg-[#F0F0EF] rounded-3xl py-2 px-3">
-                        {balances && selectedToken && (
-                          <p className="text-sm font-medium text-gray-700 flex justify-center items-center">
-                            <span className="">{selectedToken}</span> {balances.get(selectedToken)}
-                            <FiChevronDown
-                              className="top-1/2 cursor-pointer text-xl ml-2"
-                              onClick={() => setDropdownOpen(!dropdownOpen)}
-                            />
-                          </p>
-                        )}
-                      </div>
-                      {dropdownOpen && (
-                        <div className="absolute right-0 mt-2 text-gray-700 w-48 bg-white shadow-lg rounded-lg border border-gray-300 overflow-x-hidden">
-                          <button
-                            onClick={disconnectWallet}
-                            className="w-full text-left px-4 text-gray-700 py-2 hover:bg-gray-100"
-                          >
-                            Disconnect Wallet
-                          </button>
-                          {balances && Array.from(balances.keys()).map((denom) => (
-                            <button
-                              key={denom}
-                              onClick={() => handleTokenChange(denom)}
-                              className="w-full text-left text-gray-700 px-4 py-2 hover:bg-gray-100"
-                            >
-                              {getSymbolFromDenom(denom, isTestnet) || denom}
-                            </button>
-                          ))}
-                        </div>
+            <section className='flex justify-between items-center'>
+              <div className='text-3xl font-semibold'>{activeOption}</div>
+              <div className="flex gap-2 items-center text-sm text-gray-700">
+                {isZeroBalance && (
+                  <button
+                    onClick={disconnectWallet}
+                  >
+                    Disconnect Wallet
+                  </button>
+                )}
+                {!isZeroBalance && (
+                  <div className="relative">
+                    <div className="flex bg-[#F0F0EF] rounded-full py-2 px-4 justify-center items-center">
+                      {balances && selectedToken && (
+                        <>
+                          <span>{selectedToken}</span>
+                          <FiChevronDown
+                            className="cursor-pointer ml-2"
+                            onClick={() => setDropdownOpen(!dropdownOpen)}
+                          />
+                        </>
                       )}
                     </div>
-                  )}
-                  <p className="font-medium bg-[#F0F0EF] text-sm py-2 px-4 rounded-3xl text-gray-700">
-                    {injectiveAddress ? injectiveAddress.slice(0, 3) + '...' + injectiveAddress.slice(-3) : ''}
-                  </p>
-                  <div className="rounded-lg flex justify-center">
-                    <div className="flex space-x-4 items-center">
-                      <button
-                        onClick={handleNetworkSwitch}
-                        className="flex items-center text-sm font-medium w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-3xl bg-[#F0F0EF]"
-                      >
-                      <span className="mr-2 inline-block w-2.5 h-2.5 bg-green-500 rounded-full"></span>
-                        Switch to {isTestnet ? 'Mainnet' : 'Testnet'}
-                      </button>
-                    </div>
+                    {dropdownOpen && (
+                      <div className="absolute mt-1 text-gray-700 w-36 bg-[#f0f0ef] shadow-md border border-gray-300 text-center flex flex-col">
+                        <button
+                          onClick={disconnectWallet}
+                          className="px-4 py-2 hover:bg-[#dddddc] border-b border-gray-300"
+                        >
+                          Disconnect
+                        </button>
+                        {balances && Array.from(balances.keys()).map((denom) => (
+                          <button
+                            key={denom}
+                            onClick={() => handleTokenChange(denom)}
+                            className="px-4 py-2 hover:bg-[#dddddc] border-b border-gray-300"
+                          >
+                            {getSymbolFromDenom(denom, isTestnet) || denom}
+                          </button>
+                        ))}
+                      </div>
+                    )}
                   </div>
+                )}
+                <p className="bg-[#F0F0EF] py-2 px-4 rounded-3xl text-gray-700">
+                  {injectiveAddress ? injectiveAddress.slice(0, 3) + '...' + injectiveAddress.slice(-3) : ''}
+                </p>
+                <div className="flex items-center">
+                  <button
+                    onClick={handleNetworkSwitch}
+                    className="bg-[#f0f0ec] py-2 px-4 rounded-full"
+                  >
+                    <span className="mr-2 inline-block w-2.5 h-2.5 bg-green-500 rounded-full"></span>
+                    Switch to {isTestnet ? 'Mainnet' : 'Testnet'}
+                  </button>
                 </div>
               </div>
-              <div>
-                <div className="text-3xl absolute top-2 left-2 ml-8 font-semibold text-gray-700 mb-4">
-                  {activeOption}
-                </div>
-                <div>
-                  {activeOption === 'Multisender' && <Multisender />}
-                  {activeOption === 'Token Holders' && <TokenHolder />}
-                  {activeOption === 'Create Tokens' && <CreateTokens />}
-                  {activeOption === 'Gas Calculator' && <Calculator />}
-                  {activeOption === 'Injective Address' && <InjectiveAddress/>}
-                </div>
-              </div>
+            </section>
+            <section className='mt-6'>
+              {activeOption === 'Multisender' && <Multisender />}
+              {activeOption === 'Token Holders' && <TokenHolder />}
+              {activeOption === 'Create Tokens' && <CreateTokens />}
+              {activeOption === 'Gas Calculator' && <Calculator />}
+              {activeOption === 'Injective Address' && <InjectiveAddress />}
+            </section>
             </>
           )}
-        </div>
-      </div>
-    </div>
+        </section>
+      </header>      
+    </>
   );
 };
 
