@@ -230,122 +230,128 @@ const Multisender: React.FC = () => {
 
   return (
     <>
-      {!showGasFeeSection ? (
-        <section className='border p-3 rounded-lg text-gray-700 text-sm'>
-          <label>
-            Select Token:
-            <select
-              onChange={handleSelectChange}
-              value={selectedDenom}
-              className="w-full p-2 border outline-none rounded-lg mt-1 mb-3 cursor-pointer"
-            >
-              {balances &&
-                Array.from(balances.keys()).map((denom) => (
-                  <option key={denom} value={denom}>
-                    {getSymbolFromDenom(denom, isTestnet) || denom}
-                  </option>
-                ))}
-            </select>
-          </label>
-          <label>
-            Upload csv:
-            <input
-              type="file"
-              accept=".csv"
-              onChange={handleCsvUpload}
-              className="p-2 border rounded-lg block mt-1 w-52 cursor-pointer"
-            />
-          </label>
-          <div className="flex justify-between items-end mt-4">
-            <div className='flex items-end'>
-            <div className="relative group">
-              <AiFillQuestionCircle className="h-6 w-6 cursor-pointer"/>
-              <div className="absolute left-44 -translate-x-1/2 mt-2 w-96 bg-gray-700 text-white p-2 rounded-lg hidden group-hover:block">
-                {`Make sure addresses are exactly as shown: \ninj1y33jq32shhfgy89mawsg3c7savs257elnf254l,1.23\ninj1y33jq32shhfgy89mawsg3c7savs257elnf254l,2.4\ninj1y33jq32shhfgy89mawsg3c7savs257elnf254l,8`}
-              </div>
-            </div>
-            {status && (
-              <div className={`p-2 border ml-2 rounded-lg transition-opacity duration-500 ease-in-out ${showStatus ? 'opacity-100' : 'opacity-0'} bg-blue-100 text-blue-500 border-blue-300`}>
-                {status}
-              </div>
-            )}
-            </div>
-
-            <button
-              onClick={() => setShowGasFeeSection(true)}
-              className="bg-gradient-to-b from-[#192DAD] to-custom-blue text-white px-4 py-2 rounded-full hover:to-custom-blue"
-            >
-              Send Tokens
-            </button>
-          </div>
-        </section>
-      ) : (
-        <section className="border p-3 rounded-lg text-gray-700 text-sm">
-          <div className='flex flex-col items-center'>            
-            <div className='flex w-full flex-col items-center my-8'>
-              <input
-                id="gasFee"
-                type="range"
-                min={1000000}
-                max={100000000}
-                step={100000}
-                value={gasFee}
-                onChange={(e) => setGasFee(Number(e.target.value))}
-                className="w-[60%] appearance-none bg-gray-300 h-3 rounded-full bg-gradient-to-b from-[#192DAD] to-custom-blue cursor-pointer"
-                style={{
-                  backgroundSize: `${((gasFee - 1000000) / (100000000 - 1000000)) * 100}% 100%`,
-                  backgroundRepeat: 'no-repeat',
-                }}
-              />
-              <div className="flex justify-between mt-4 text-sm text-gray-400 w-[60%]">
-                <span>1M</span>
-                <span>2M</span>
-                <span>4M</span>
-                <span>6M</span>
-                <span>8M</span>
-                <span>10M</span>
-              </div>
-            </div>
-            <span className='font-medium text-lg text-gray-500'>{gasFee * 160000000 / 1e18} INJ</span>
-          </div>
-          <div className='flex justify-between items-center mt-4'>
-            <div className="flex justify-center items-end">
-              <div className="relative group">
-                <AiFillQuestionCircle className="h-6 icon w-6 mr-4 text-gray-700 cursor-pointer" />
-                <div className="absolute left-44 -translate-x-1/2 mt-2 w-96 bg-gray-700 text-white text-sm rounded-lg py-2 px-4 hidden group-hover:block transition-opacity duration-300">
-                  <p>
-                    Adjust the slider to set the desired gas fee for your transaction. The selected fee will be applied based on the value shown on the scale. Ensure it meets the network requirements for a smooth transaction. For more details, visit
-                    <a href="https://docs.injective.network/learn/basic-concepts/gas_and_fees/" target="_blank" className="text-blue-500"> injective gas fee guide</a>.
-                  </p>
-
-                </div>
-              </div>
-              {status && (
-                <div className={`p-2 border rounded-lg transition-opacity duration-500 ease-in-out ${showStatus ? 'opacity-100' : 'opacity-0'} bg-blue-100 text-blue-500 border-blue-300`}>
-                  {status}
-                </div>
-              )}
-            </div>
+      <main className='h-[30vh]'>
+        {!showGasFeeSection ? (
+          <section className='border p-3 rounded-lg text-gray-700 text-sm h-full flex flex-col justify-between'>
             <div>
+              <label>
+                Select Token:
+                <select
+                  onChange={handleSelectChange}
+                  value={selectedDenom}
+                  className="w-full p-2 border outline-none rounded-lg mt-1 mb-3 cursor-pointer"
+                >
+                  {balances &&
+                    Array.from(balances.keys()).map((denom) => (
+                      <option key={denom} value={denom}>
+                        {getSymbolFromDenom(denom, isTestnet) || denom}
+                      </option>
+                    ))}
+                </select>
+              </label>
+              <label>
+                Upload csv:
+                <input
+                  type="file"
+                  accept=".csv"
+                  onChange={handleCsvUpload}
+                  className="p-2 border rounded-lg block mt-1 w-52 cursor-pointer"
+                />
+              </label>
+            </div>
+            <div className="flex justify-between items-end">
+              <div className='flex items-end'>
+                <div className="relative group">
+                  <AiFillQuestionCircle className="h-6 w-6 mr-4 cursor-pointer" />
+                  <div className="absolute left-44 -translate-x-1/2 mt-2 w-96 bg-gray-700 text-white p-2 rounded-lg hidden group-hover:block">
+                    {`Make sure addresses are exactly as shown: \ninj1y33jq32shhfgy89mawsg3c7savs257elnf254l,1.23\ninj1y33jq32shhfgy89mawsg3c7savs257elnf254l,2.4\ninj1y33jq32shhfgy89mawsg3c7savs257elnf254l,8`}
+                  </div>
+                </div>
+                {status && (
+                  <div className={`p-2 border rounded-lg transition-opacity duration-500 ease-in-out ${showStatus ? 'opacity-100' : 'opacity-0'} bg-blue-100 text-blue-500 border-blue-300`}>
+                    {status}
+                  </div>
+                )}
+              </div>
+
               <button
-                onClick={() => setShowGasFeeSection(false)}
-                className="border  text-gray-400 py-2 px-5 rounded-full hover:text-gray-500 hover:border-gray-500 hover:font-semibold"
+                onClick={() => setShowGasFeeSection(true)}
+                className="bg-custom-blue text-white px-6 py-2 rounded-full hover:scale-[103%] hover:duration-300"
               >
-                Back
-              </button>
-              <button
-                onClick={handleSend}
-                className="bg-gradient-to-b from-[#192DAD] to-custom-blue text-white px-4 py-2 rounded-full hover:to-custom-blue ml-2"
-              >
-                Confirm Transaction
+                Send Tokens
               </button>
             </div>
-          </div>
-        </section>
-      )}
+          </section>
+
+        ) : (
+
+          <section className="border p-3 rounded-lg text-gray-700 text-sm h-full flex flex-col justify-between">
+            <div className='flex flex-col items-center'>
+              <div className='flex w-full flex-col items-center my-8'>
+                <input
+                  id="gasFee"
+                  type="range"
+                  min={1000000}
+                  max={100000000}
+                  step={100000}
+                  value={gasFee}
+                  onChange={(e) => setGasFee(Number(e.target.value))}
+                  className="w-[60%] appearance-none bg-gray-300 h-3 rounded-full bg-gradient-to-b from-[#192DAD] to-custom-blue cursor-pointer"
+                  style={{
+                    backgroundSize: `${((gasFee - 1000000) / (100000000 - 1000000)) * 100}% 100%`,
+                    backgroundRepeat: 'no-repeat',
+                  }}
+                />
+                <div className="flex justify-between mt-4 text-sm text-gray-400 w-[60%]">
+                  <span>1M</span>
+                  <span>2M</span>
+                  <span>4M</span>
+                  <span>6M</span>
+                  <span>8M</span>
+                  <span>10M</span>
+                </div>
+              </div>
+              <span className='font-medium text-lg text-gray-500'>{gasFee * 160000000 / 1e18} INJ</span>
+            </div>
+            <div className='flex justify-between items-end'>
+              <div className='flex items-end'>
+                <div className="relative group">
+                  <AiFillQuestionCircle className="h-6 w-6 mr-4 text-gray-700 cursor-pointer" />
+                  <div className="absolute left-44 -translate-x-1/2 mt-2 w-96 bg-gray-700 text-white text-sm rounded-lg py-2 px-4 hidden group-hover:block transition-opacity duration-300">
+                    <p>
+                      Adjust the slider to set the desired gas fee for your transaction. The selected fee will be applied based on the value shown on the scale. Ensure it meets the network requirements for a smooth transaction. For more details, visit
+                      <a href="https://docs.injective.network/learn/basic-concepts/gas_and_fees/" target="_blank" className="text-blue-500"> injective gas fee guide</a>.
+                    </p>
+
+                  </div>
+                </div>
+                {status && (
+                 <div className={`p-2 border rounded-lg transition-opacity duration-500 ease-in-out ${showStatus ? 'opacity-100' : 'opacity-0'} bg-blue-100 text-blue-500 border-blue-300`}>
+                 {status}
+               </div>
+                )}
+              </div>
+              <div>
+                <button
+                  onClick={() => setShowGasFeeSection(false)}
+                  className="border text-[#b9bbc5] hover:text-[#6d728c] px-6 py-2 rounded-full hover:border-[#6d728c] hover:scale-[103%] hover:duration-300"
+                >
+                  Back
+                </button>
+                <button
+                  onClick={handleSend}
+                  className="bg-custom-blue text-white px-6 py-2 rounded-full hover:scale-[103%] hover:duration-300 ml-2"
+                >
+                  Confirm Transaction
+                </button>
+              </div>
+            </div>
+          </section>
+        )}
+      </main>
 
       {/* Transaction Hashes Display */}
-      <section className='mt-4 p-4 border rounded-lg text-gray-700'>
+      <section className='mt-4 p-4 border rounded-lg text-gray-700 h-full'>
         <h3 className="font-semibold text-lg mb-4">Transaction History</h3>
         {sortedTransactions.length > 0 && (
           <div className='overflow-hidden px-4'>
@@ -361,10 +367,10 @@ const Multisender: React.FC = () => {
                   const timestamp = tx.timestamp ? new Date(tx.timestamp).toLocaleString() : 'No timestamp';
 
                   return (
-                    <tr key={tx.hash} className={`py-4 border-y flex items-center justify-start gap-20`} >                      
-                      {timestamp}                     
+                    <tr key={tx.hash} className={`py-4 border-y flex items-center justify-start gap-20`} >
+                      {timestamp}
                       ({tx.network})
-                      <li className= 'text-left'>                    
+                      <li className='text-left'>
                         <a
                           href={`${explorerUrl}${tx.hash}`}
                           target="_blank"

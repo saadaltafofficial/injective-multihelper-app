@@ -72,13 +72,13 @@ const MainPage: React.FC = () => {
   return (
     <>    
       <header className="flex h-screen">
-        <Sidebar setActiveOption={setActiveOption} isWalletConnected={isWalletConnected} />
+        <Sidebar setActiveOption={setActiveOption} isWalletConnected={isWalletConnected} activeoption={activeOption}/>
         <section className='w-full p-4'>
           {!isWalletConnected ? (
             <div className='flex w-full h-full justify-center items-center'>
               <button
                 onClick={connectWallet}
-                className="flex items-center px-6 py-4 bg-gradient-to-b from-[#192DAD] to-custom-blue text-white rounded-full hover:scale-[2rem] duration-150"
+                className="flex items-center px-6 py-3 bg-custom-blue text-white rounded-full hover:scale-[103%] hover:duration-300"
               >
                 <FiLogIn className="mr-2" />
                 Connect Wallet
