@@ -1,9 +1,10 @@
 import React from 'react';
 import { GoStack } from "react-icons/go";
 import { IoWalletOutline } from "react-icons/io5";
-import { FaCalculator } from "react-icons/fa6";
 import { IoMdSettings } from "react-icons/io";
 import { FaArrowCircleRight, FaArrowCircleLeft } from "react-icons/fa";
+import { PiCoinsFill } from "react-icons/pi";
+import { FaGasPump } from "react-icons/fa";
 
 
 interface SidebarProps {
@@ -57,7 +58,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setActiveOption, isWalletConnected, a
           className={`flex items-center px-4 py-5 hover:bg-[#fffffc] hover:duration-200 hover:text-custom-blue ${activeoption === "Create Tokens" ? "bg-[#fffffc] text-custom-blue": ""} ${!isWalletConnected && 'opacity-50 cursor-not-allowed'}`}
           disabled={!isWalletConnected}
         >
-          <IoWalletOutline className="text-2xl"/>
+          <PiCoinsFill  className="text-2xl"/>
           {isOpen && <span className="ml-6">Create Tokens</span>}
         </button>
         <button
@@ -65,7 +66,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setActiveOption, isWalletConnected, a
           className={`flex items-center px-4 py-5 hover:bg-[#fffffc] hover:duration-200 hover:text-custom-blue ${activeoption === "Gas Calculator" ? "bg-[#fffffc] text-custom-blue": ""} ${!isWalletConnected && 'opacity-50 cursor-not-allowed'}`}
           disabled={!isWalletConnected}
         >
-          <FaCalculator className="text-2xl"/>
+          <FaGasPump  className="text-2xl"/>
           {isOpen && <span className="ml-6">Gas Calculator</span>}
         </button>
         {/* Settings Button Styled Like Other Buttons */}

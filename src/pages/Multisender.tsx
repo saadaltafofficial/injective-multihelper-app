@@ -239,7 +239,7 @@ const Multisender: React.FC = () => {
                 <select
                   onChange={handleSelectChange}
                   value={selectedDenom}
-                  className="w-full p-2 border outline-none rounded-lg mt-1 mb-3 cursor-pointer"
+                  className="w-full p-2 border outline-none rounded-lg mt-1 mb-3 cursor-pointer outline-custom-blue outline-1"
                 >
                   {balances &&
                     Array.from(balances.keys()).map((denom) => (
@@ -255,7 +255,7 @@ const Multisender: React.FC = () => {
                   type="file"
                   accept=".csv"
                   onChange={handleCsvUpload}
-                  className="p-2 border rounded-lg block mt-1 w-52 cursor-pointer"
+                  className="p-2 border rounded-lg block mt-1 w-52 cursor-pointer outline-custom-blue"
                 />
               </label>
             </div>

@@ -134,34 +134,37 @@ const TokenHolder = () => {
   console.log('Current Holders:', currentHolders); // Log current holders
 
   return (
-    <div className="token-holder-page mt-20 mx-4">
-      <div className="bg-[#f0f0ef] p-4 rounded-lg items-center gap-4">
-        <div className="flex-grow">
-          <label htmlFor="denomInput" className="block mb-2 font-medium text-gray-700">
-            Enter Denom
-          </label>
-          <input
-            id="denomInput"
-            type="text"
-            value={denom}
-            onChange={(e) => setDenom(e.target.value)}
-            className="w-full p-2 border rounded-lg outline-none font-medium text-gray-700"
-          />
+    <main>
+      <section className="border h-[30vh] p-3 rounded-lg flex flex-col justify-between gap-4 font-normal text-sm text-gray-700">
+        <div>
+          <div>
+            <label>
+              Enter Denom
+              <input
+                id="denomInput"
+                type="text"
+                value={denom}
+                onChange={(e) => setDenom(e.target.value)}
+                placeholder='peggy0xb2617246d0c6c0087f18703d576831899ca94f01'
+                className="w-full p-2 border rounded-lg outline-custom-blue outline-1 cursor-pointer"
+              />
+            </label>
+          </div>
+          <div className='mt-4'>
+            <label>
+              Decimal
+              <input
+                id="decimalPlacesInput"
+                type="number"
+                min="0"
+                value={decimalPlaces}
+                onChange={(e) => setDecimalPlaces(Number(e.target.value))}
+                className="w-full p-2 border rounded-lg outline-custom-blue outline-1 cursor-pointer"
+              />
+            </label>
+          </div>
         </div>
-        <div className='mt-4'>
-          <label htmlFor="decimalPlacesInput" className="block mb-2 font-medium text-gray-700 ">
-            Decimal
-          </label>
-          <input
-            id="decimalPlacesInput"
-            type="number"
-            min="0"
-            value={decimalPlaces}
-            onChange={(e) => setDecimalPlaces(Number(e.target.value))}
-            className="w-full p-2 border rounded-lg font-medium text-gray-700 outline-none"
-          />
-        </div>
-        <div className='mt-4 flex justify-between items-center'>
+        <div className='flex justify-between items-end'>
           <div className="relative group z-50">
             <AiFillQuestionCircle className="h-6 w-6 mr-4 text-gray-700 cursor-pointer" />
             <div className="absolute left-44 -translate-x-1/2 mt-2 w-96 bg-gray-700 text-white text-sm rounded-lg py-2 px-4 hidden group-hover:block transition-opacity duration-300">
@@ -176,7 +179,7 @@ const TokenHolder = () => {
               <CSVLink
                 data={csvData}
                 filename={"token-holders.csv"}
-                className="border-2 border-gray-400 text-gray-400 py-1.5 px-4 rounded-full hover:border-gray-500 hover:text-gray-500"
+                className="border text-[#b9bbc5] hover:text-[#6d728c] px-6 py-2 rounded-full hover:border-[#6d728c] hover:scale-[103%] hover:duration-300"
                 target="_blank"
               >
                 Download CSV
@@ -184,13 +187,13 @@ const TokenHolder = () => {
             )}
             <button
               onClick={handleFetchClick}
-              className="ml-4 bg-gradient-to-r from-blue-500 to-teal-400 text-white py-2 px-4 rounded-full hover:from-blue-600 hover:to-teal-500"
+              className="bg-custom-blue text-white px-6 py-2 rounded-full hover:scale-[103%] hover:duration-300 ml-2"
             >
               Get Holders
             </button>
           </div>
         </div>
-      </div>
+      </section>
       {loading ? (
         <div className="text-center mt-4">Loading...</div>
       ) : error ? (
@@ -199,7 +202,7 @@ const TokenHolder = () => {
         <div className="text-center mt-4">No holders found for the denom {denom}</div>
       ) : currentHolders.length > 0 ? (
         <>
-          <div className='w-full h-[55vh] bg-[#f0f0ef] rounded-lg p-4 overflow-hidden mt-7'>
+          <div className='w-full h-full border rounded-lg p-4 overflow-hidden mt-4'>
             <div className="bg-white rounded-lg overflow-x-auto">
               <div className="text-black font-medium px-4 py-2 sticky top-0 z-10">
                 <div className="flex justify-between">
@@ -212,7 +215,7 @@ const TokenHolder = () => {
                 {currentHolders.map((holder, index) => (
                   <li
                     key={index}
-                    className={`py-2 px-4 flex justify-between items-center ${index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}`}
+                    className={`py-2 px-4 flex justify-between items-center ${index % 2 === 0 ? 'bg-white' : 'bg-indigo-100'}`}
                   >
                     <span className="truncate">{holder.address}</span>
                     <span>{holder.amount}</span>
@@ -243,7 +246,7 @@ const TokenHolder = () => {
       ) : (
         <div className="text-center mt-4">Enter a denom and click "Get Holders" to see results.</div>
       )}
-    </div>
+    </main>
   );
 };
 
