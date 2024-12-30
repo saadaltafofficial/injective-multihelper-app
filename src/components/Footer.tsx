@@ -4,7 +4,7 @@ import { FaGithub } from "react-icons/fa";
 
 const Footer = () => {
     return (
-        <footer className="flex gap-8 justify-center items-center absolute bottom-8 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        <footer className="flex gap-8 justify-center items-center">
             <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
             <BsTwitterX className="text-2xl"/>
             </a>

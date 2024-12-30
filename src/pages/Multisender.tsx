@@ -23,6 +23,7 @@ const Multisender: React.FC = () => {
   const { isTestnet } = useNetwork();
   const [selectedDenom, setSelectedDenom] = useState<string>('');
   const [csvData, setCsvData] = useState<CsvRow[]>([]);
+  const [file, setFile] = useState<boolean>(false)
   const [status, setStatus] = useState<string>('');
   const [balances, setBalances] = useState<Map<string, string> | null>(null);
   const [injectiveAddress, setInjectiveAddress] = useState<string | null>(null);
@@ -30,6 +31,7 @@ const Multisender: React.FC = () => {
   const [showStatus, setShowStatus] = useState<boolean>(false);
   const [showGasFeeSection, setShowGasFeeSection] = useState<boolean>(false);
   const [gasFee, setGasFee] = useState<number>(50000000);
+  const [confirm, setConfirm] = useState<boolean>(false)
 
   const chainId = isTestnet ? 'injective-888' : 'injective-1';
   const sentryEndpoint = isTestnet
@@ -72,16 +74,18 @@ const Multisender: React.FC = () => {
   const handleCsvUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
+      setFile(true)
       Papa.parse<CsvRow>(file, {
         header: false,
         skipEmptyLines: true,
         complete: function (results) {
-          setCsvData(results.data);
-          console.log('CSV Data:', results.data);
+          setCsvData(results.data);        
+          console.log('CSV Data:', results.data);        
         }
       });
     }
   };
+
 
   useEffect(() => {
     if (status) {
@@ -94,7 +98,7 @@ const Multisender: React.FC = () => {
     }
   }, [status]);
 
-  const validateCsv = () => {
+  const validateCsv = () => {  
     if (!csvData || csvData.length === 0) {
       setStatus('CSV file is empty or not properly formatted.');
       return false;
@@ -117,6 +121,7 @@ const Multisender: React.FC = () => {
 
     return true;
   };
+
 
   const handleSend = async () => {
     if (!selectedDenom || csvData.length === 0) {
@@ -212,8 +217,8 @@ const Multisender: React.FC = () => {
       const updatedHashes = [newTransaction, ...existingHashes];
       localStorage.setItem(`txHashes-${injectiveAddress}`, JSON.stringify(updatedHashes));
       setTransactionHashes(updatedHashes);
-
-      setShowGasFeeSection(false);
+      setConfirm(true)
+      handleCancel()
     } catch (error) {
       console.error('Transaction error:', error);
       setStatus('Transaction failed.');
@@ -228,6 +233,12 @@ const Multisender: React.FC = () => {
     return new Date(b.timestamp || 0).getTime() - new Date(a.timestamp || 0).getTime();
   });
 
+  function handleCancel(){
+    setShowGasFeeSection(false)
+    setFile(false)
+  }
+
+
   return (
     <>
       <main className='h-[30vh]'>
@@ -237,6 +248,7 @@ const Multisender: React.FC = () => {
               <label>
                 Select Token:
                 <select
+                  required
                   onChange={handleSelectChange}
                   value={selectedDenom}
                   className="w-full p-2 border outline-none rounded-lg mt-1 mb-3 cursor-pointer outline-custom-blue outline-1"
@@ -255,6 +267,7 @@ const Multisender: React.FC = () => {
                   type="file"
                   accept=".csv"
                   onChange={handleCsvUpload}
+                  required
                   className="p-2 border rounded-lg block mt-1 w-52 cursor-pointer outline-custom-blue"
                 />
               </label>
@@ -274,12 +287,20 @@ const Multisender: React.FC = () => {
                 )}
               </div>
 
+                      
+              {file ? 
               <button
-                onClick={() => setShowGasFeeSection(true)}
-                className="bg-custom-blue text-white px-6 py-2 rounded-full hover:scale-[103%] hover:duration-300"
+                onClick={() => setShowGasFeeSection(true)}            
+                className={`bg-custom-blue text-white px-6 py-2 rounded-full hover:scale-[103%] hover:duration-300 ${file ? "cursor-pointer": "cursor-not-allowed"}`}            
               >
                 Send Tokens
-              </button>
+              </button> : 
+              <button
+              disabled
+              className={`bg-custom-blue text-white px-6 py-2 rounded-full hover:scale-[103%] hover:duration-300 ${file ? "cursor-pointer": "cursor-not-allowed"}`}            
+            >
+              Send Tokens
+            </button>}              
             </div>
           </section>
 
@@ -322,7 +343,6 @@ const Multisender: React.FC = () => {
                       Adjust the slider to set the desired gas fee for your transaction. The selected fee will be applied based on the value shown on the scale. Ensure it meets the network requirements for a smooth transaction. For more details, visit
                       <a href="https://docs.injective.network/learn/basic-concepts/gas_and_fees/" target="_blank" className="text-blue-500"> injective gas fee guide</a>.
                     </p>
-
                   </div>
                 </div>
                 {status && (
@@ -333,17 +353,17 @@ const Multisender: React.FC = () => {
               </div>
               <div>
                 <button
-                  onClick={() => setShowGasFeeSection(false)}
+                  onClick={handleCancel}
                   className="border text-[#b9bbc5] hover:text-[#6d728c] px-6 py-2 rounded-full hover:border-[#6d728c] hover:scale-[103%] hover:duration-300"
                 >
-                  Back
-                </button>
-                <button
+                  Cancel
+                </button>                
+                <button                
                   onClick={handleSend}
                   className="bg-custom-blue text-white px-6 py-2 rounded-full hover:scale-[103%] hover:duration-300 ml-2"
                 >
                   Confirm Transaction
-                </button>
+                </button> 
               </div>
             </div>
           </section>

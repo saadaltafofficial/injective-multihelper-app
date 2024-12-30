@@ -215,7 +215,7 @@ const TokenHolder = () => {
                 {currentHolders.map((holder, index) => (
                   <li
                     key={index}
-                    className={`py-2 px-4 flex justify-between items-center ${index % 2 === 0 ? 'bg-white' : 'bg-indigo-100'}`}
+                    className={`py-2 px-4 flex justify-between items-center ${index % 2 === 0 ? 'bg-white' : 'bg-[#f6f7ff]'}`}
                   >
                     <span className="truncate">{holder.address}</span>
                     <span>{holder.amount}</span>
