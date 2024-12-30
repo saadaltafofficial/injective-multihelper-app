@@ -31,7 +31,6 @@ const Multisender: React.FC = () => {
   const [showStatus, setShowStatus] = useState<boolean>(false);
   const [showGasFeeSection, setShowGasFeeSection] = useState<boolean>(false);
   const [gasFee, setGasFee] = useState<number>(50000000);
-  const [confirm, setConfirm] = useState<boolean>(false)
 
   const chainId = isTestnet ? 'injective-888' : 'injective-1';
   const sentryEndpoint = isTestnet
@@ -217,7 +216,6 @@ const Multisender: React.FC = () => {
       const updatedHashes = [newTransaction, ...existingHashes];
       localStorage.setItem(`txHashes-${injectiveAddress}`, JSON.stringify(updatedHashes));
       setTransactionHashes(updatedHashes);
-      setConfirm(true)
       handleCancel()
     } catch (error) {
       console.error('Transaction error:', error);
