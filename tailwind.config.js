@@ -5,14 +5,11 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    screens: {
-      'sm': '640px',
-      'md': '768px',
-      'lg': '1024px',
-      'xl': '1280px',
-      '2xl': '1536px',
-    },
     extend: {
+      screens: {
+        "desktop": { max: "1024px" }, // Applies styles for screens <= 1024px
+        "tablet": { max: "640px" },   // Applies styles for screens <= 640px
+      },
       colors: {
         'custom-blue': 'rgba(37, 23, 169, 0.8)',
         'navbar-bg': 'rgba(241, 241, 242, .1)'
