@@ -61,12 +61,14 @@ const TokenHolder = () => {
 
     try {
       const chainGrpcBankApi = new ChainGrpcBankApi(endpoints.grpc);
+      console.log(chainGrpcBankApi)
 
       if (blockHeight !== null) {
         chainGrpcBankApi.setMetadata({
           'x-cosmos-block-height': blockHeight.toString(),
         });
       }
+
 
       const response = await chainGrpcBankApi.fetchDenomOwners(denom, {
         limit: 5000,
