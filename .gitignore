@@ -11,6 +11,12 @@ node_modules
 dist
 dist-ssr
 *.local
+.env
+postcss.config.json
+tailwind.config.json
+tsconfig.app.json
+tsconfig.node.json
+yarn.lock
 
 # Editor directories and files
 .vscode/*
