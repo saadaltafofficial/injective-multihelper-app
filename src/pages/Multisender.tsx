@@ -35,10 +35,11 @@ const Multisender: React.FC = () => {
   const chainId = isTestnet ? 'injective-888' : 'injective-1';
   const sentryEndpoint = isTestnet
     ? 'https://testnet.sentry.lcd.injective.network:443'
-    : 'https://sentry.lcd.injective.network:443';
+    : 'https://injective-rest.publicnode.com';
   const grpcWebEndpoint = isTestnet
     ? 'https://testnet.sentry.chain.grpc-web.injective.network:443'
     : 'https://sentry.chain.grpc-web.injective.network:443';
+
 
   const initializeKeplr = useCallback(async () => {
     try {
@@ -194,16 +195,17 @@ const Multisender: React.FC = () => {
 
       const { key, offlineSigner } = await getKeplr(chainId);
       const pubKey = Buffer.from(key.pubKey).toString('base64');
-
+      console.log(pubKey)
+      
       const chainRestAuthApi = new ChainRestAuthApi(sentryEndpoint);
       const accountDetailsResponse = await chainRestAuthApi.fetchAccount(injectiveAddress);
       const baseAccount = BaseAccount.fromRestApi(accountDetailsResponse);
-
+      console.log(baseAccount)
+      
       const chainRestTendermintApi = new ChainRestTendermintApi(sentryEndpoint);
       const latestBlock = await chainRestTendermintApi.fetchLatestBlock();
       const latestHeight = latestBlock.header.height;
       const timeoutHeight = new BigNumberInBase(latestHeight).plus(DEFAULT_BLOCK_TIMEOUT_HEIGHT);
-
       // Prepare inputs and outputs for MsgMultiSend
       // Calculate total amount and convert to wei for blockchain transactions
       // Determine token decimals based on denomination
@@ -228,6 +230,8 @@ const Multisender: React.FC = () => {
         );
         totalAmountInWei = totalAmountInWei.plus(amountInWei);
       }
+      
+      console.log(timeoutHeight);
 
       console.log('Transaction preparation:', {
         humanReadableTotal: totalHumanReadable,
@@ -288,6 +292,7 @@ const Multisender: React.FC = () => {
       const txRaw = getTxRawFromTxRawOrDirectSignResponse(directSignResponse);
       const txHash = await broadcastTx(chainId, txRaw);
       const response = await new TxRestApi(sentryEndpoint).fetchTxPoll(txHash);
+      console.log(response)
 
       setStatus(`Transaction successful: ${response.txHash}`);
 
