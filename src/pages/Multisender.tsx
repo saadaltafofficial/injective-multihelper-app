@@ -4,7 +4,7 @@ import { Buffer } from 'buffer';
 import { MsgMultiSend, TxRestApi, BaseAccount, createTransaction, getTxRawFromTxRawOrDirectSignResponse, ChainRestAuthApi, ChainRestTendermintApi } from '@injectivelabs/sdk-ts';
 import { getKeplr, broadcastTx, fetchBalances } from '../utils/keplrUtils';
 import { useNetwork } from '../contexts/NetworkContext';
-import { DEFAULT_BLOCK_TIMEOUT_HEIGHT, BigNumberInBase, BigNumberInWei } from "@injectivelabs/utils";
+import { DEFAULT_BLOCK_TIMEOUT_HEIGHT, BigNumberInBase } from "@injectivelabs/utils";
 import { SignDoc } from "@keplr-wallet/types";
 import { getSymbolFromDenom } from '../utils/tokenUtils'; // Import the shared utility
 import { AiFillQuestionCircle } from "react-icons/ai";
@@ -55,7 +55,25 @@ const Multisender: React.FC = () => {
 
   useEffect(() => {
     if (injectiveAddress) {
-      fetchBalances(injectiveAddress, grpcWebEndpoint).then(setBalances);
+      fetchBalances(injectiveAddress, grpcWebEndpoint).then(balances => {
+        setBalances(balances);
+        console.log('Fetched balances for address:', injectiveAddress);
+        console.log('Network:', isTestnet ? 'Testnet' : 'Mainnet');
+        console.log('Endpoint:', grpcWebEndpoint);
+        
+        // Log each balance with token symbol and human-readable amounts
+        if (balances) {
+          console.log('=== BALANCE DETAILS ===');
+          balances.forEach((amount, denom) => {
+            const symbol = getSymbolFromDenom(denom, isTestnet);
+            // Amount is already in human-readable format from fetchBalances
+            
+            console.log(`${symbol} (${denom}):`);
+            console.log(`  Balance: ${amount}`);
+          });
+          console.log('=====================');
+        }
+      });
 
       // Load transaction hashes with network type from local storage
       const storedHashes = localStorage.getItem(`txHashes-${injectiveAddress}`);
@@ -63,7 +81,7 @@ const Multisender: React.FC = () => {
         setTransactionHashes(JSON.parse(storedHashes));
       }
     }
-  }, [injectiveAddress, grpcWebEndpoint]);
+  }, [injectiveAddress, grpcWebEndpoint, isTestnet]);
 
 
   useEffect(() => {
@@ -77,9 +95,23 @@ const Multisender: React.FC = () => {
       Papa.parse<CsvRow>(file, {
         header: false,
         skipEmptyLines: true,
+        transform: (value) => value.trim(), // Trim whitespace from values
         complete: function (results) {
-          setCsvData(results.data);        
-          console.log('CSV Data:', results.data);        
+          // Process the CSV data to handle thousand separators in amounts
+          const processedData = results.data.map(([address, amount]) => {
+            // Clean the amount by removing thousand separators (commas)
+            const cleanedAmount = amount ? amount.toString().replace(/,/g, '') : amount;
+            return [address, cleanedAmount] as CsvRow;
+          });
+          
+          setCsvData(processedData);
+          console.log('Processed CSV Data:', processedData);
+          
+          // Log the total amount for debugging
+          const totalAmount = processedData.reduce((sum, [_, amount]) => {
+            return sum + (amount ? parseFloat(amount) : 0);
+          }, 0);
+          console.log('Total amount in CSV:', totalAmount);
         }
       });
     }
@@ -104,17 +136,33 @@ const Multisender: React.FC = () => {
     }
 
     for (const [address, amount] of csvData) {
-      if (!address || !amount || isNaN(parseFloat(amount))) {
+      const cleanedAmount = amount ? amount.toString().replace(/,/g, '') : '';
+      if (!address || !cleanedAmount || isNaN(parseFloat(cleanedAmount))) {
         setStatus('CSV contains invalid address or amount.');
         return false;
       }
     }
 
-    const totalAmount = csvData.reduce((acc, [, amount]) => acc + parseFloat(amount), 0);
+    // Calculate total amount from CSV data in human-readable format
+    let totalAmount = 0;
+    for (const [, amount] of csvData) {
+      const cleanedAmount = amount.toString().replace(/,/g, '');
+      totalAmount += parseFloat(cleanedAmount);
+    }
+    
+    // Get user balance - already in human-readable format from fetchBalances
     const userBalance = balances?.get(selectedDenom) || '0';
+    const userBalanceInTokens = parseFloat(userBalance);
+    
+    console.log('Balance check:', {
+      totalAmountInCSV: totalAmount,
+      userBalance,
+      userBalanceInTokens,
+      selectedDenom
+    });
 
-    if (parseFloat(userBalance) < totalAmount) {
-      setStatus('Total amount in CSV exceeds your balance.');
+    if (userBalanceInTokens < totalAmount) {
+      setStatus(`Total amount in CSV (${totalAmount.toFixed(6)}) exceeds your balance (${userBalanceInTokens.toFixed(6)}).`);
       return false;
     }
 
@@ -128,7 +176,15 @@ const Multisender: React.FC = () => {
       return;
     }
 
-    if (!validateCsv()) return;
+    if (!validateCsv()) {
+      return;
+    }
+
+    // Final validation and cleaning of amounts before sending
+    const processedCsvData = csvData.map(([address, amount]) => {
+      const cleanedAmount = amount.toString().replace(/,/g, '');
+      return [address, cleanedAmount] as CsvRow;
+    });
 
     try {
       if (!injectiveAddress) {
@@ -148,40 +204,67 @@ const Multisender: React.FC = () => {
       const latestHeight = latestBlock.header.height;
       const timeoutHeight = new BigNumberInBase(latestHeight).plus(DEFAULT_BLOCK_TIMEOUT_HEIGHT);
 
-      const totalToSend = csvData.reduce((acc, [, amount]) => {
-        return acc.plus(new BigNumberInBase(amount).toWei(18));
-      }, new BigNumberInWei(0));
+      // Prepare inputs and outputs for MsgMultiSend
+      // Calculate total amount and convert to wei for blockchain transactions
+      // Determine token decimals based on denomination
+      const tokenDecimals = selectedDenom.startsWith('peggy') || selectedDenom === 'inj' ? 18 : 6;
+      console.log(`Using ${tokenDecimals} decimals for ${selectedDenom}`);
+      
+      let totalHumanReadable = 0;
+      let totalAmountInWei = new BigNumberInBase(0);
+      
+      for (const [_, amount] of processedCsvData) {
+        const parsedAmount = parseFloat(amount);
+        if (isNaN(parsedAmount)) {
+          setStatus('Invalid amount detected in CSV data');
+          return;
+        }
+        
+        totalHumanReadable += parsedAmount;
+        
+        // Convert human readable amount to wei (smallest unit)
+        const amountInWei = new BigNumberInBase(parsedAmount).times(
+          new BigNumberInBase(10).pow(tokenDecimals)
+        );
+        totalAmountInWei = totalAmountInWei.plus(amountInWei);
+      }
 
+      console.log('Transaction preparation:', {
+        humanReadableTotal: totalHumanReadable,
+        weiTotal: totalAmountInWei.toFixed(),
+        selectedDenom,
+        recipientCount: processedCsvData.length
+      });
 
-      // const totalToSend = csvData.reduce((acc, [, amount]) => {
-      //   return acc.add(ethers.utils.parseUnits(amount.toString(), 18));
-      // }, ethers.BigNumber.from(0));
+      const inputs = [{
+        address: injectiveAddress,
+        coins: [{
+          denom: selectedDenom,
+          amount: totalAmountInWei.toFixed(), // Use the wei amount (smallest unit)
+        }],
+      }];
 
-
+      const outputs = processedCsvData.map(([address, amount]) => {
+        const parsedAmount = parseFloat(amount);
+        // Convert to wei (smallest unit) for blockchain transaction
+        const amountInWei = new BigNumberInBase(parsedAmount).times(
+          new BigNumberInBase(10).pow(tokenDecimals)
+        );
+        
+        console.log(`Converting ${parsedAmount} to ${amountInWei.toFixed()} wei for ${address}`);
+        
+        return {
+          address,
+          coins: [{
+            denom: selectedDenom,
+            amount: amountInWei.toFixed(), // Use the wei amount (smallest unit)
+          }],
+        };
+      });
 
       const msg = MsgMultiSend.fromJSON({
-        inputs: [
-          {
-            address: injectiveAddress,
-            coins: [
-              {
-                denom: selectedDenom,
-                amount: totalToSend.toFixed(),
-              },
-            ],
-          },
-        ],
-        outputs: csvData.map(([address, amount]) => {
-          return {
-            address,
-            coins: [
-              {
-                amount: new BigNumberInBase(amount).toWei(18).toFixed(),
-                denom: selectedDenom,
-              },
-            ],
-          };
-        }),
+        inputs,
+        outputs,
       });
 
       const { signDoc } = createTransaction({
@@ -275,7 +358,18 @@ const Multisender: React.FC = () => {
                 <div className="relative group">
                   <AiFillQuestionCircle className="h-6 w-6 mr-4 cursor-pointer" />
                   <div className="absolute left-44 -translate-x-1/2 mt-2 w-96 bg-gray-700 text-white p-2 rounded-lg hidden group-hover:block">
-                    {`Make sure addresses are exactly as shown: \ninj1y33jq32shhfgy89mawsg3c7savs257elnf254l,1.23\ninj1y33jq32shhfgy89mawsg3c7savs257elnf254l,2.4\ninj1y33jq32shhfgy89mawsg3c7savs257elnf254l,8`}
+                    <p className="mb-2">CSV Format Guidelines:</p>
+                    <ul className="list-disc pl-4 mb-2">
+                      <li>Each line should have an Injective address and amount separated by a comma</li>
+                      <li>Numbers can include thousand separators (commas) which will be automatically removed</li>
+                      <li>Decimal values are supported (use period as decimal separator)</li>
+                    </ul>
+                    <p className="mb-1">Examples:</p>
+                    <pre className="text-xs">
+                      inj1y33jq32shhfgy89mawsg3c7savs257elnf254l,1.23
+                      inj1y33jq32shhfgy89mawsg3c7savs257elnf254l,2,400
+                      inj1y33jq32shhfgy89mawsg3c7savs257elnf254l,8
+                    </pre>
                   </div>
                 </div>
                 {status && (
